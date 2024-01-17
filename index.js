@@ -1,21 +1,21 @@
-import "dotenv/config";
-import OpenAI from "openai";
+import 'dotenv/config'
+import OpenAI from 'openai'
 
-export const openai = new OpenAI();
+export const openai = new OpenAI()
 
 const results = await openai.chat.completions.create({
-  model: "gpt-3.5-turbo",
+  model: 'gpt-3.5-turbo',
   messages: [
     {
-      role: "system",
+      role: 'system',
       content:
-        "You are an AI assistant, answer any questions to the best of your ability",
+        'You are an AI assistant, answer any questions to the best of your ability',
     },
     {
-      role: "user",
-      content: "Hi! Can you tell me what is the best way to how to do math?",
+      role: 'user',
+      content: 'Hi! Can you tell me what is the best way to how to do math?',
     },
   ],
-});
+})
 
-console.log("results: ", results.choices[0].message.content);
+console.log('results: ', results.choices[0].message.content)

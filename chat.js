@@ -37,7 +37,7 @@ const chat = () => {
       const response = await newMessage(history, message)
 
       history.push(message, response)
-      console.log(`\n\nAi: ${response.content}`)
+      console.log(`\n\nAi: ${response.content}\n\n`)
       start()
     })
   }
