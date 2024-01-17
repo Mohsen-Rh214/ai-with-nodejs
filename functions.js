@@ -14,12 +14,18 @@ const functions = {
   calculate: async ({ expression }) => {
     return math.evaluate(expression)
   },
+  async generateImage({ prompt }) {
+    const result = await openai.images.generate({ prompt })
+    console.log(result)
+    return result.data[0].url
+  },
 }
 
 const getCompletion = async (messages) => {
   const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo-0613',
     messages,
+    temperature: 0,
     functions: [
       {
         name: 'calculate',
@@ -36,8 +42,21 @@ const getCompletion = async (messages) => {
           required: ['expression'],
         },
       },
+      {
+        name: 'generateImage',
+        description: 'Create or generate image based on a description',
+        parameters: {
+          type: 'object',
+          properties: {
+            prompt: {
+              type: 'string',
+              description: 'The description of the image to generate',
+            },
+          },
+          required: ['prompt'],
+        },
+      },
     ],
-    temperature: 0,
   })
 
   return response
